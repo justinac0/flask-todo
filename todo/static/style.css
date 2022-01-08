@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+}
+
+.hide {
+    display: none;
+}
+
+.entry {
+    margin: 2em;
+    padding: 1em;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.button {
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+.red {
+    background-color: #e74c3ca0;
+}
+
+.green {
+    background-color: #2ecc70a0;    
+}
+
+.date {
+    color: gray;
+}
+
+.add {
+    padding: 1em;
+    background-color: #3498dba0;
+    border-bottom: 1px solid black;
+}
+
+.add > input {
+    padding: 1em;
+    border: 1px solid black;
+    border-radius: 2px;
+}
