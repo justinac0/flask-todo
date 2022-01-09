@@ -5,10 +5,16 @@ from flask import (
     Blueprint,
     render_template
 )
+from flask_sqlalchemy import model
+from sqlalchemy.orm import session
 
 from . import models
 
 todo = Blueprint("todo", __name__)
+
+
+def get_entry(id):
+    return models.Entry.query.filter(models.Entry.id == id).first()
 
 
 def get_entries():
@@ -29,26 +35,22 @@ def new():
     return redirect("/")
 
 
-@todo.route("/delete", methods=["POST"])
-def delete():
-    models.db.session.delete(
-        models.Entry.query.filter(
-            models.Entry.id == request.form['id']
-        ).first()
-    )
-
+@todo.route("/delete/<int:id>", methods=["POST"])
+def delete(id):
+    models.db.session.delete(get_entry(id))
     models.db.session.commit()
 
     return redirect("/")
 
 
-@todo.route("/edit/<int:id>", methods=["POST"])
+@todo.route("/edit/<int:id>", methods=["GET", "POST"])
 def edit(id):
-    return None
+    entry = get_entry(id)
 
+    if request.method == "POST" and entry is not None:
+        entry.body = request.form["body"]
+        models.db.session.commit()
 
-@todo.route("/get/<int:id>", methods=["GET"])
-def get(id):
-    entries = get_entries()
-    print(entries)
-    return None
+        return redirect("/")
+
+    return render_template("todo/edit.html", entry=entry)

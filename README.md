@@ -5,7 +5,8 @@ A simple todo app made with flask.
 
 ## Features
 - [X] Adding and removing tasks
-- [ ] Edit Tasks
+- [X] Edit Tasks
+- [ ] Search Tasks
 - [ ] Dynamic Page Updating
 - [ ] Re-ordering Tasks
 - [ ] Task Severity

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <title>flask-todo</title>
-<link rel="stylesheet" href="static/style.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<header>
+    <h1>flask-todo</h1>
+</header>
 <section class="content">
     {% block content %}{% endblock %}
 </section>

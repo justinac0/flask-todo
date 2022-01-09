@@ -1,25 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form class="add" action="{{ url_for('todo.new') }}" method="post">
-    <h1>flask-todo</h1>
-    <p>Write a task you would like to complete in the box below, then press 'Add' to add it to your list.</p>
-    <br>
-    <input type="textarea" name="body" required>
-    <input type="submit" value="Add">
-</form>
-<div class="entries">
-    {% for e in entries %}
-        <div class="entry">
-            <h3 class="body">{{ e.body }}</h3>
-            <p class="date">{{ e.date_created }}</p>
-            <form action="{{ url_for('todo.delete') }}" method="post">
-                <input class="hide" type="text" name="id" value="{{ e.id }}" readonly>
-                <input class="button green" type="submit" name="edit" value="Edit">
-                <input class="button red" type="submit" name="remove" value="Delete">
-            </form>
-        </div>
-    {% endfor %}
+    <form class="controls" action="{{ url_for('todo.new') }}" method="post">
+        <input type="textarea" name="body" required>
+        <input class="button green" type="submit" value="Add">
+    </form>
 
-</div>
+    <div class="entries">
+        {% for e in entries %}
+            <div class="entry">
+                <p class="body">{{ e.body }} (<a href="{{ url_for('todo.edit', id=e.id) }}">Edit</a>)</p>
+                <p class="date">{{ e.date_created }}</p>
+                <section>
+                    <form action="{{ url_for('todo.delete', id=e.id) }}" method="post">
+                        <input class="hide" type="text" name="id" value="{{ e.id }}" readonly>
+                        <input class="button red" type="submit" name="remove" value="Delete">
+                    </form>
+                </section>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
