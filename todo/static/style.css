@@ -45,6 +45,40 @@ body {
     padding: 1em;
 }
 
+.inactive > * > *, .inactive {
+    background-color: rgba(100, 100, 100, 0.21) !important;
+    color: rgba(100, 100, 100, 0.5) !important;
+}
+
+.inactive {
+    border: 1px dashed rgba(100, 100, 100, 0.7);
+}
+
+.inactive form input {
+    border: 1px solid rgba(50, 50, 50, 1) !important;
+    color: rgba(50, 50, 50, 1) !important;
+}
+
+.inactive p {
+    color: rgba(100, 100, 100, 1) !important;
+}
+
+textarea {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+.move-right {
+    text-align: right;
+}
+
+input.big-checkbox {
+    width: 128px;
+    min-height: 128px;
+}
+
 header {
     padding: 1em;
     background-color: #3498dba0;

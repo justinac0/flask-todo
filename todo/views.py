@@ -18,7 +18,7 @@ def get_entry(id):
 
 
 def get_entries():
-    return models.Entry.query.all()
+    return models.db.session.query(models.Entry).order_by(models.Entry.is_done)
 
 
 @todo.route("/", methods=["GET"])
@@ -49,6 +49,19 @@ def edit(id):
 
     if request.method == "POST" and entry is not None:
         entry.body = request.form["body"]
+        models.db.session.commit()
+
+        return redirect("/")
+
+    return render_template("todo/edit.html", entry=entry)
+
+
+@todo.route("/done/<int:id>", methods=["GET", "POST"])
+def done(id):
+    entry = get_entry(id)
+
+    if request.method == "POST" and entry is not None:
+        entry.is_done = not entry.is_done
         models.db.session.commit()
 
         return redirect("/")

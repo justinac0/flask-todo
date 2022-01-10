@@ -3,9 +3,13 @@
 {% block content %}
     <div class="entry">
         <form action="{{ url_for('todo.edit', id=entry.id) }}" method="post">
-            <input class="body button" type="text" name="body" value="{{ request.form["body"] or entry.body }}">
+            <input class="button edit-text" type="text" name="body" value="{{ request.form["body"] or entry.body }}" required>
             <input class="button yellow" type="submit" name="save" value="Save">
         </form>
-        <p class="date">{{ entry.date_created }}</p>
+        <br>
+        <form action="{{ url_for('todo.delete', id=entry.id) }}" method="post">
+            <input class="hide" type="text" name="id" value="{{ entry.id }}" readonly>
+            <input class="button red" type="submit" name="remove" value="Delete">
+        </form>
     </div>
 {% endblock %}

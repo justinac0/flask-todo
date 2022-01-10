@@ -2,21 +2,30 @@
 
 {% block content %}
     <form class="controls" action="{{ url_for('todo.new') }}" method="post">
-        <input type="textarea" name="body" required>
+        <input type="text" name="body" required>
         <input class="button green" type="submit" value="Add">
     </form>
 
     <div class="entries">
         {% for e in entries %}
-            <div class="entry">
-                <p class="body">{{ e.body }} (<a href="{{ url_for('todo.edit', id=e.id) }}">Edit</a>)</p>
+            {% if e.is_done %}
+                <div class="entry inactive">
+            {% else %}
+                <div class="entry">
+            {% endif %}
+                <p class="body">{{ e.body }}
+                    {% if not e.is_done %}
+                    (<a href="{{ url_for('todo.edit', id=e.id) }}">Edit</a>)
+                    {% endif %}
+                </p>
                 <p class="date">{{ e.date_created }}</p>
-                <section>
-                    <form action="{{ url_for('todo.delete', id=e.id) }}" method="post">
-                        <input class="hide" type="text" name="id" value="{{ e.id }}" readonly>
-                        <input class="button red" type="submit" name="remove" value="Delete">
-                    </form>
-                </section>
+                <form action="{{ url_for('todo.done', id=e.id) }}" method="post">
+                    {% if e.is_done %}
+                        <input class="button yellow" type="submit" value="Undo">
+                    {% else %}
+                        <input class="button green" type="submit" value="Done">
+                    {% endif %}
+                </form>
             </div>
         {% endfor %}
     </div>
